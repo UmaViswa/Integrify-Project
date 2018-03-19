@@ -47,7 +47,8 @@
       "id": "eef4cf21-7825-40bf-9d79-078fc0ef66ff",
       "name": "Janette, Bush",
       "phone": "+1 (819) 441-3960",
-},
+      "email": "test@gmail.com"
+    },
     {
       "id": "c9377170-d67a-4d16-89fe-d9bc1c4eaadb",
       "name": "Reeves, Clay",
