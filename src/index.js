@@ -1,22 +1,21 @@
- import React from 'react'
-import ReactDOM from 'react-dom'
-import { headers, data } from './data.json'
-import './index.css'
+import React from 'react'
+import { render }  from 'react-dom'
+import ReactTable from 'react-table'
+import 'react-table/react-table.css'
+import { makeData, Tips } from "./data_react_table";
 
 class TodoApp extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { items: [], name: '', email: '', phone: '' };
+    this.state = { items: makeData(), name: '', email: '', phone: ''};
     this.handleName = this.handleName.bind(this);
     this.handleEmail = this.handleEmail.bind(this);
     this.handlePhone = this.handlePhone.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.d = { data }
   }
-
   render() {
     return (
-      <div>
+        <div>
         <h3>List Of Participants</h3>
         <form onSubmit={this.handleSubmit} >
           <tr>
@@ -28,9 +27,7 @@ class TodoApp extends React.Component {
           </button>
         </tr>
         </form>
-        <Header items={this.state}/>
-        <TodoList items={this.state.items} />
-    <ReadList items={this.d.data} />
+        <RowRender  data={this.state.items}/>
         </div>
     );
   }
@@ -49,17 +46,17 @@ class TodoApp extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     if (!this.state.name.length) {
-      return;
+        return;
     }
     const newItem = {
       name: this.state.name,
       email: this.state.email,
       phone: this.state.phone,
-      id: Date.now(),
-    
+      id: Date.now()
+   
     };
-    this.setState(prevState => ({
-      items: prevState.items.concat(newItem),
+    this.setState(nextState => ({
+      items: nextState.items.concat(newItem),
       name: '',
       email: '',
       phone: ''
@@ -67,63 +64,49 @@ class TodoApp extends React.Component {
   }
 }
 
-class TodoList extends React.Component {
-  render() {
+
+class RowRender extends React.Component {
+    render() {
+    const data =  this.props.data;
     return (
-      <ul>
-        {this.props.items.map(item => (
-           <RowStyler item={item} />
-        ))}
-      </ul>
+        <div>
+        <ReactTable
+        data = { data }
+        columns={[
+                {
+                  Header: "Last Name, First Name",
+                  accessor: "name",
+                  maxWidth: 200
+                },
+                {
+                  Header: "Email",
+                  accessor: "email",
+                  maxWidth: 300
+                },
+                {
+                  Header: "Phone Number",
+                  accessor: "phone",
+                  maxWidth: 125
+                },
+                {
+                    Cell: <button> Edit </button>,
+                    width: 125
+                },
+                {
+                    Cell: <button> Delete </button>,
+                    width: 125
+                },
+            ]
+        }
+          defaultPageSize={25}
+          className="-striped -highlight"
+        />
+        <br />
+        <Tips />
+      </div>
     );
   }
 }
 
-class ReadList extends React.Component {
-render() {
-   return (
-   <ul>
-    {this.props.items.map(item =>
-    <RowStyler item={item} />
-        )}
-    </ul>
-    );
-   }
-}
 
-class Header extends React.Component {
- constructor(props) {
-    super(props);
-    this.item = { name:'Last Name, First Name', email: 'Email', phone: 'Phone Number' };
-   }
-    render() {
-        return (
-        <ul>
-        <RowStyler item={this.item} />
-    </ul>
-        )}}
-
-class RowStyler extends React.Component {
-    render () {
-    return (
-        <div className="headerrow">
-           <PrintTd str={this.props.item.name } />
-           <PrintTd str={this.props.item.email} />
-           <PrintTd str={this.props.item.phone} />
-        <td><button>
-            Delete
-          </button> </td>
-        <td> <button>
-           Edit
-        </button> </td>
-        </div> 
-       );
-    }
-}
-class PrintTd extends React.Component {
-    render() {
-        return (
-                <td className="tablerow">  {this.props.str} </td> 
-        )}}
-
-ReactDOM.render(<TodoApp />, document.getElementById('root'));
+render(<TodoApp />, document.getElementById('root'));
