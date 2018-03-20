@@ -15,9 +15,11 @@ Developer Documentation
     npm install
 
 5. Install react-table:
+
     npm install react-table
 
 6. Install namor:
+
      npm install namor
     
 7.Start npm:
