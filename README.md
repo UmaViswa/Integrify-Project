@@ -2,7 +2,7 @@ Developer Documentation
 
 1.Create or change to the directory where you want to clone the project.
 
-2. Git clone the repository.
+2.Git clone the repository.
   
     git clone https://github.com/UmaViswa/Integrify-Project.git
 
@@ -14,11 +14,11 @@ Developer Documentation
 
     npm install
 
-5. Install react-table:
+5.Install react-table:
 
     npm install react-table
 
-6. Install namor:
+6.Install namor:
 
      npm install namor
     
