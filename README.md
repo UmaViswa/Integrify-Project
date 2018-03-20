@@ -27,3 +27,6 @@ Developer Documentation
     npm start 
 
 8.The project will be launched on the localhost:3000
+
+The present project works with React-table module, it could generate 20 random items, sort and add new item. The item which is newly added to list is added to the last row.
+
